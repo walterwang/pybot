@@ -23,12 +23,11 @@ def mclick_abs(abs_x, abs_y, click = "left", e = 0):
     qp = display.Display().screen().root.query_pointer()
     device.emit(uinput.REL_X, abs_x-qp.root_x+e)
     device.emit(uinput.REL_Y, abs_y-qp.root_y+e)
-    time.sleep(1)
+    time.sleep(.1)
     if click == "left":
         device.emit_click(uinput.BTN_LEFT, 1)
     else:
         device.emit_click(uinput.BTN_RIGHT, 1)
-
 
 def random_pause(seconds, range = 0):
     if (seconds-range) < 0:
@@ -39,16 +38,16 @@ def random_pause(seconds, range = 0):
     sleep_time = random.randint(min_pause*10, (seconds+range)*10)/10
     time.sleep(sleep_time)
 
-for i in range(100):
-
-    mclick_abs(2141, 714)
-    random_pause(8, 2)
-
-    mclick_abs(2508, 730, click ='right')
-    random_pause(1, 1)
-
-    mclick_abs(2497, 775)
-    random_pause(1, 1)
+# for i in range(100):
+#
+#     mclick_abs(2141, 714)
+#     random_pause(8, 2)
+#
+#     mclick_abs(2508, 730, click ='right')
+#     random_pause(1, 1)
+#
+#     mclick_abs(2497, 775)
+#     random_pause(1, 1)
 
 
 # 2141 714
