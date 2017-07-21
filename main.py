@@ -6,6 +6,7 @@ import Client
 import mouse
 import threading
 import time
+import random
 
 osclient = Client.Client()
 
@@ -59,7 +60,7 @@ def get_objects():
         if area > 3000:
             c = (int((botright[0] + topleft[0]) / 2), int((botright[1] + topleft[1]) / 2))
             rcenter.append(c)
-            print("c: ", c)
+
     return rclasses, rbboxes, rcenter
 
 def debug_thread():
@@ -77,8 +78,8 @@ def drop(inv_id, inv =inv):
 
     ix, iy =inv[inv_id]
     mouse.mclick_abs(ix, iy, click='right', e=2)
-    time.sleep(0.1)
-    mouse.mclick_abs(ix, iy+40)
+    time.sleep(0.3)
+    mouse.mclick_abs(ix, iy+42)
 
 
 def run_script():
@@ -86,7 +87,7 @@ def run_script():
     # inv = get_client.get_inventory()
     # char_center = get_client.get_center()
     char_center = osclient.center
-    print("center", char_center)
+
     rock1 =(0,0)
     rock2 = (0,0)
 
@@ -98,7 +99,6 @@ def run_script():
         for c in rcenter:
 
             d = distSquared(char_center,c)
-            print("distance", d)
             if d < r1:
                 r2 = r1
                 rock2 = rock1
@@ -108,16 +108,18 @@ def run_script():
                 r2 = d
                 rock2 = c
 
-        time.sleep(0.4)
-        print(rock1)
+        time.sleep(0.1)
+
         mouse.mclick_abs(rock1[0]+box['left'], rock1[1]+box['top'])
         time.sleep(1.4)
         drop(1)
-        time.sleep(0.4)
-        print(rock2)
+        time.sleep(0.1)
+
         mouse.mclick_abs(rock2[0]+box['left'], rock2[1]+box['top'])
         time.sleep(1.4)
         drop(0)
+        #if 1 > random.randint(0,15):
+        #    drop(2)
 
 t = threading.Thread(target = run_script)
 #m = threading.Thread(target = debug_thread)
