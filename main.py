@@ -8,6 +8,7 @@ import threading
 import time
 import random
 
+
 osclient = Client.Client()
 
 box = osclient.box
@@ -74,6 +75,7 @@ def distSquared(p0, p1):
     return (p0[0] - p1[0])**2 + (p0[1] - p1[1])**2
 
 inv = osclient.inv
+
 def drop(inv_id, inv =inv):
 
     ix, iy =inv[inv_id]
@@ -84,14 +86,12 @@ def drop(inv_id, inv =inv):
 
 def run_script():
     box = osclient.box
-    # inv = get_client.get_inventory()
-    # char_center = get_client.get_center()
     char_center = osclient.center
-
     rock1 =(0,0)
     rock2 = (0,0)
 
     while 1:
+
         rclasses, _, rcenter = get_objects()
         r1 = 99999999
         r2 = 99999999
@@ -108,18 +108,17 @@ def run_script():
                 r2 = d
                 rock2 = c
 
-        time.sleep(0.1)
+        time.sleep(0.3)
 
         mouse.mclick_abs(rock1[0]+box['left'], rock1[1]+box['top'])
         time.sleep(1.4)
         drop(1)
-        time.sleep(0.1)
+        time.sleep(0.3)
 
         mouse.mclick_abs(rock2[0]+box['left'], rock2[1]+box['top'])
         time.sleep(1.4)
         drop(0)
-        #if 1 > random.randint(0,15):
-        #    drop(2)
+
 
 #t = threading.Thread(target = run_script)
 #m = threading.Thread(target = debug_thread)
