@@ -121,10 +121,10 @@ def run_script():
         #if 1 > random.randint(0,15):
         #    drop(2)
 
-t = threading.Thread(target = run_script)
+#t = threading.Thread(target = run_script)
 #m = threading.Thread(target = debug_thread)
 #
-t.start()
+#t.start()
 #m.start()
 
-# run_script()
+run_script()

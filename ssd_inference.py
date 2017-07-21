@@ -9,10 +9,6 @@ import os
 
 slim = tf.contrib.slim
 
-
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-
 import sys
 
 sys.path.append('/home/walter/Documents/others_git/SSD-Tensorflow/')
@@ -71,8 +67,8 @@ def process_image(img, select_threshold=0.75, nms_threshold=.20, net_shape=(512,
 
 
 # Test on some demo image and visualize output.
-path = '/home/walter/Documents/others_git/SSD-Tensorflow/demo/'
-image_names = sorted(os.listdir(path))
+# path = '/home/walter/Documents/others_git/SSD-Tensorflow/demo/'
+# image_names = sorted(os.listdir(path))
 
 
 
