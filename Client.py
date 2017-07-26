@@ -1,7 +1,6 @@
 from ewmh import EWMH
-#import mouse
-import time
-
+import autolog
+import ocr
 class Client(object):
 
     def __init__(self, client_name = "osbuddy"):
@@ -54,34 +53,10 @@ class Client(object):
     def get_client_box(self):
         return self.box
 
-
-# osb = Client()
-# import cv2
-# import mss
-# import numpy as np
-# from PIL import Image
-# import pytesseract
-# time.sleep(2)
-# bbox=osb.box
-# bbox['width'] = 226
-# bbox['height'] = 19
-
-# def ocr_text():
-#     sct = mss.mss()
-#     img = np.array(sct.grab(bbox))[:,:,:-1]
-#     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-#     img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-#     #img = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
-#     img = cv2.medianBlur(img, 1)
-#     img = cv2.resize(img, (0,0), fx= 3, fy =3)
-#     #cv2.imshow("im", img)
-#     #cv2.waitKey(0)
-#     pil_im = Image.fromarray(img)
-# 
-#     text = pytesseract.image_to_string(pil_im)
-#     return (text)
+if __name__ == "__main__":
+    test = Client()
+    autolog.checkloginscreen(test.box)
 
 
-# while 1:
-#     time.sleep(1)
-#     print(ocr_text())
+
+

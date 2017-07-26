@@ -7,7 +7,13 @@ import mouse
 import threading
 import time
 import random
-
+import argparse
+import autolog
+import keyboard
+parser = argparse.ArgumentParser(description = 'Debug')
+parser.add_argument('--d', type = bool, help='debug false by default', default=False)
+args = parser.parse_args()
+start_debug = args.d
 
 osclient = Client.Client()
 
@@ -35,9 +41,9 @@ def visualize_box(img, rclasses, rscores, rbboxes):
         botright = (int(box[3] * img.shape[1]), int(box[2] * img.shape[0]))
         area = (botright[0] - topleft[0]) * (botright[1] - topleft[1])
         if area > 3000:
-            cv2.putText(img, str(labels[rclasses[ind]])+": "+ str(np.round(rscores[ind], decimals=2)),
+            img = cv2.putText(img, str(labels[rclasses[ind]])+": "+ str(np.round(rscores[ind], decimals=2)),
                         topleft, cv2.FONT_HERSHEY_SIMPLEX, .4, (255, 255, 255), 1, cv2.LINE_AA)
-            cv2.rectangle(img, topleft, botright, (0, 255, 0), 1)
+            img = cv2.rectangle(img, topleft, botright, (0, 255, 0), 1)
     return img
 
 
@@ -74,30 +80,31 @@ def debug_thread():
 def distSquared(p0, p1):
     return (p0[0] - p1[0])**2 + (p0[1] - p1[1])**2
 
+
 inv = osclient.inv
 
 def drop(inv_id, inv =inv):
-
     ix, iy =inv[inv_id]
     mouse.mclick_abs(ix, iy, click='right', e=2)
     time.sleep(0.3)
     mouse.mclick_abs(ix, iy+42)
 
-
 def run_script():
+
     box = osclient.box
     char_center = osclient.center
     rock1 =(0,0)
     rock2 = (0,0)
-
+    loop_count = 0
     while 1:
+        if loop_count%100 == 0 and autolog.checkloginscreen(box=box):
+            time.sleep(10)
+            keyboard.hold_key("LEFT_KEY", 20)
 
         rclasses, _, rcenter = get_objects()
         r1 = 99999999
         r2 = 99999999
-
         for c in rcenter:
-
             d = distSquared(char_center,c)
             if d < r1:
                 r2 = r1
@@ -107,23 +114,26 @@ def run_script():
             elif d < r2:
                 r2 = d
                 rock2 = c
+        time.sleep(0.1)
+        text_found = mouse.ocr_click(rock1[0]+box['left'], rock1[1]+box['top'], box, target_text="Rock")
 
-        time.sleep(0.3)
-
-        mouse.mclick_abs(rock1[0]+box['left'], rock1[1]+box['top'])
+        #mouse.mclick_abs(rock1[0]+box['left'], rock1[1]+box['top'])
         time.sleep(1.4)
         drop(1)
-        time.sleep(0.3)
+        time.sleep(0.1)
+        text_found = mouse.ocr_click(rock2[0]+box['left'], rock2[1]+box['top'], box, target_text="Rock")
 
-        mouse.mclick_abs(rock2[0]+box['left'], rock2[1]+box['top'])
         time.sleep(1.4)
         drop(0)
+        if random.randint(0,15)<1:
+            drop(2)
+        loop_count+=1
 
+if start_debug:
+    #t = threading.Thread(target=run_script)
+    m = threading.Thread(target=debug_thread)
 
-#t = threading.Thread(target = run_script)
-#m = threading.Thread(target = debug_thread)
-#
-#t.start()
-#m.start()
-
-run_script()
+    #t.start()
+    m.start()
+else:
+    run_script()
