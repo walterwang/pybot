@@ -5,7 +5,7 @@ import util.core.client as client
 import os
 
 path = os.path.join(os.path.dirname(__file__),"training_data/minimap_data/")
-
+ 
 client = client.Client()
 
 offset_top = 78 - 74
