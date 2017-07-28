@@ -1,5 +1,3 @@
-from Xlib import display
-import ssd_inference
 import os
 
 import time

@@ -1,6 +1,6 @@
 from ewmh import EWMH
-import autolog
-import ocr
+
+
 class Client(object):
 
     def __init__(self, client_name = "osbuddy"):
@@ -52,10 +52,6 @@ class Client(object):
 
     def get_client_box(self):
         return self.box
-
-if __name__ == "__main__":
-    test = Client()
-    autolog.checkloginscreen(test.box)
 
 
 

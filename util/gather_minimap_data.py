@@ -1,12 +1,9 @@
 import cv2
 import mss
-import sys
 import numpy as np
-import Client
-sys.path.append('../')
+import util.core.client as client
 
-
-client = Client.Client()
+client = client.Client()
 
 offset_top = 78 - 74
 offset_left = 636 - 74

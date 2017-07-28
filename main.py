@@ -1,21 +1,22 @@
-import ssd_inference
-import numpy as np
-import cv2
-import mss
-import Client
-import mouse
+import argparse
+import random
 import threading
 import time
-import random
-import argparse
-import autolog
-import keyboard
+
+import cv2
+import mss
+import numpy as np
+
+from util import autolog, drop
+from util.core import client, keyboard, mouse
+from util.core.ssd import ssd_inference
+
 parser = argparse.ArgumentParser(description = 'Debug')
 parser.add_argument('--d', type = bool, help='debug false by default', default=False)
 args = parser.parse_args()
 start_debug = args.d
 
-osclient = Client.Client()
+osclient = client.Client()
 
 box = osclient.box
 
@@ -34,6 +35,7 @@ labels = {
     10: 'silver'
 }
 sct = mss.mss()
+
 
 def visualize_box(img, rclasses, rscores, rbboxes):
     for ind, box in enumerate(rbboxes):
@@ -81,18 +83,10 @@ def distSquared(p0, p1):
     return (p0[0] - p1[0])**2 + (p0[1] - p1[1])**2
 
 
-inv = osclient.inv
-
-def drop(inv_id, inv =inv):
-    ix, iy =inv[inv_id]
-    mouse.mclick_abs(ix, iy, click='right', e=2)
-    time.sleep(0.3)
-    mouse.mclick_abs(ix, iy+42)
-
 def run_script():
-
     box = osclient.box
     char_center = osclient.center
+    inv = osclient.inv
     rock1 =(0,0)
     rock2 = (0,0)
     loop_count = 0
@@ -100,7 +94,6 @@ def run_script():
         if loop_count%100 == 0 and autolog.checkloginscreen(box=box):
             time.sleep(10)
             keyboard.hold_key("LEFT_KEY", 20)
-
         rclasses, _, rcenter = get_objects()
         r1 = 99999999
         r2 = 99999999
@@ -115,25 +108,25 @@ def run_script():
                 r2 = d
                 rock2 = c
         time.sleep(0.1)
-        text_found = mouse.ocr_click(rock1[0]+box['left'], rock1[1]+box['top'], box, target_text="Rock")
+        text_found = mouse.ocr_click(rock1[0] + box['left'], rock1[1] + box['top'], box, target_text="Rock")
 
         #mouse.mclick_abs(rock1[0]+box['left'], rock1[1]+box['top'])
         time.sleep(1.4)
-        drop(1)
+        drop.drop_item(1, inv)
         time.sleep(0.1)
-        text_found = mouse.ocr_click(rock2[0]+box['left'], rock2[1]+box['top'], box, target_text="Rock")
+        text_found = mouse.ocr_click(rock2[0] + box['left'], rock2[1] + box['top'], box, target_text="Rock")
 
         time.sleep(1.4)
-        drop(0)
+        drop.drop_item(0, inv)
         if random.randint(0,15)<1:
-            drop(2)
+            drop.drop_item(2, inv)
         loop_count+=1
 
 if start_debug:
-    #t = threading.Thread(target=run_script)
+    t = threading.Thread(target=run_script)
     m = threading.Thread(target=debug_thread)
 
-    #t.start()
+    t.start()
     m.start()
 else:
     run_script()
