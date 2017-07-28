@@ -17,7 +17,6 @@ args = parser.parse_args()
 start_debug = args.d
 
 osclient = client.Client()
-
 box = osclient.box
 
 

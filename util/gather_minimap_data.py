@@ -33,5 +33,5 @@ white_mask = cv2.cvtColor(white_mask, cv2.COLOR_GRAY2BGR)
 combined_img = cv2.add(white_mask, img_masked)
 cv2.imshow("minimap", combined_img)
 cv2.waitKey(0)
-cv2.imwrite("test_minimap.jpg", img_masked, [cv2.IMWRITE_JPEG_QUALITY, 100])
+cv2.imwrite("test_minimap.jpg", combined_img, [cv2.IMWRITE_JPEG_QUALITY, 100])
 
