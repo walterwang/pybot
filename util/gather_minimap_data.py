@@ -2,6 +2,9 @@ import cv2
 import mss
 import numpy as np
 import util.core.client as client
+import os
+
+path = os.path.join(os.path.dirname(__file__),"training_data/minimap_data/")
 
 client = client.Client()
 
