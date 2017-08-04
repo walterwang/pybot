@@ -23,15 +23,15 @@ box = osclient.box
 labels = {
     0: 'none',
     1:'depleted',
-    2:'gold',
-    3:'tin',
-    4:'copper' ,
-    5:'clay' ,
-    6:'granite' ,
-    7:'sandstone' ,
+    2:'bankchest',
+    3:'depositbox',
+    4:'amethyst' ,
+    5:'mithril' ,
+    6:'adamantite' ,
     8:'coal' ,
     9:'iron' ,
-    10: 'silver'
+    15: 'spooky_ghost'
+
 }
 sct = mss.mss()
 
@@ -41,7 +41,7 @@ def visualize_box(img, rclasses, rscores, rbboxes):
         topleft = (int(box[1] * img.shape[1]), int(box[0] * img.shape[0]))
         botright = (int(box[3] * img.shape[1]), int(box[2] * img.shape[0]))
         area = (botright[0] - topleft[0]) * (botright[1] - topleft[1])
-        if area > 3000:
+        if area> 0: #area > 3000:
             img = cv2.putText(img, str(labels[rclasses[ind]])+": "+ str(np.round(rscores[ind], decimals=2)),
                         topleft, cv2.FONT_HERSHEY_SIMPLEX, .4, (255, 255, 255), 1, cv2.LINE_AA)
             img = cv2.rectangle(img, topleft, botright, (0, 255, 0), 1)
@@ -122,10 +122,10 @@ def run_script():
         loop_count+=1
 
 if start_debug:
-    t = threading.Thread(target=run_script)
+    # t = threading.Thread(target=run_script)
     m = threading.Thread(target=debug_thread)
 
-    t.start()
+    # t.start()
     m.start()
 else:
     run_script()

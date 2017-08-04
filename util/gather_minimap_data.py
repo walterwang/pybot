@@ -16,14 +16,10 @@ def get_map(sct4, client_box, square = False):
                    'height': 151}
     img = np.array(sct4.grab(minimap_box))[:, :, :-1]
 
-
     mask = cv2.imread('mask.jpg', 0)
-
-    # ret, mask = cv2.threshold(mask, 125, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
     thresh = 250
     ret, mask = cv2.threshold(mask, thresh, 255, cv2.THRESH_BINARY)
-
 
     img_masked = cv2.bitwise_and(img, img, mask= mask )
     white_mask = cv2.bitwise_not(mask, mask)
@@ -44,9 +40,8 @@ class MonitorSuper(PyKeyboardEvent):
     sct4 = mss.mss()
     client = client.Client()
     PyKeyboardEvent.i = 0
-    def tap(self, keycode, character, press):
 
-        '''Monitor Right key.'''
+    def tap(self, keycode, character, press):
         if character == 'q':
             if press:
                 if PyKeyboardEvent.i < 75:
@@ -57,11 +52,6 @@ class MonitorSuper(PyKeyboardEvent):
                     cv2.imwrite(filename, get_map(self.sct4, self.client.box, square =True)[0])
                 else:
                     sys.exit()
-#
-
-
-# cv2.imwrite("map6.jpg", get_map(square =True), [cv2.IMWRITE_JPEG_QUALITY, 100])
-
 
 if __name__ == "__main__":
 
@@ -69,10 +59,7 @@ if __name__ == "__main__":
     parser.add_argument('-l', type=str, help='debug false by default', default="miningguild")
     args = parser.parse_args()
     label = args.l
-
     data_path = os.path.join(os.path.dirname(__file__), "training_data/minimaps/miningguild")
-
-
 
     mon = MonitorSuper()
     mon.run()

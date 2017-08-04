@@ -1,47 +1,51 @@
-import os
-
-import time
-print (time.strftime("%Y-%m-%d %H:%M"))
-
-# for i in range(1000):
-#     time.sleep(3)
-#     data = display.Display().screen().root.query_pointer()._data
-#     print(data["root_x"], data["root_y"])
-
-
+import os, sys
+from util.core.client import Client
 import numpy as np
 import cv2
-from mss import mss
-from PIL import Image
-id = 25
-box = {'top': 72, 'left': 18, 'width': 510, 'height': 332}
+import mss
+import argparse
 
-sct = mss()
-img_dir = "/media/walter/565EBE215EBDF9B7/Users/Walter/Desktop/rs_train2/"
+def get_game_screen(sct4, client_box):
+    return np.array(sct4.grab(client_box))[:, :, :-1]
 
-if not os.path.exists(img_dir):
-    os.makedirs(img_dir)
+from pykeyboard import PyKeyboardEvent
 
-files = os.listdir(img_dir)
-print(files)
-id = 93
-# for f in files:
-#     if int(f.split('.')[0])>id:
-#         id=int(f.split('.')[0])
-#         print(id)
+class MonitorSuper(PyKeyboardEvent):
+    def __init__(self):
+        PyKeyboardEvent.__init__(self)
+        self.sct4 = mss.mss()
+        self.client = Client()
+        PyKeyboardEvent.i = last_id
+    def tap(self, keycode, character, press):
 
-for i in range(1000):
-    time.sleep(2)
-    sct.get_pixels(box)
-    img = Image.frombytes('RGB', (sct.width, sct.height), sct.image)
-    img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        if character == 'w':
+            if press:
+                    PyKeyboardEvent.i +=1
+                    print('map_saved', str(PyKeyboardEvent.i))
+                    filename=os.path.join(data_path, label + "_%s.png" % format(PyKeyboardEvent.i,'04d'))
+                    print(filename)
+                    cv2.imwrite(filename, get_game_screen(self.sct4, self.client.box))
+        if character == 'q':
+            sys.exit()
 
+if __name__ == "__main__":
+    label = 'rocks'
+    data_path = os.path.join(os.path.dirname(__file__), "training_data/rocks/JPEGImages/")
 
-    cv2.imshow('client', img)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--label', type = str, default = label)
+    parser.add_argument('--dir_path', type=str, default = data_path)
+    args = parser.parse_args()
+    label = args.label
+    data_path = args.dir_path
+    num = []
+    for f in os.listdir(data_path):
+        if label == f.split('_')[0]:
+            num.append(int(f.split('_')[-1].split('.')[0]))
+    if num:
+        last_id = max(num)
+    else:
+        last_id = 0
 
-    id+=1
-    file_name=img_dir+str(id)+'.jpg'
-    cv2.imwrite(file_name, img)
-    if cv2.waitKey(25) & 0xFF == ord('q'):
-        cv2.destroyAllWindows()
-        break
+    mon = MonitorSuper()
+    mon.run()
