@@ -13,8 +13,10 @@ from util.core.ssd import ssd_inference
 
 parser = argparse.ArgumentParser(description = 'Debug')
 parser.add_argument('--d', type = bool, help='debug false by default', default=False)
+parser.add_argument('--r', type = bool, help='record', default=False)
 args = parser.parse_args()
 start_debug = args.d
+record_debug = args.r
 
 osclient = client.Client()
 box = osclient.box
@@ -72,9 +74,14 @@ def get_objects():
     return rclasses, rbboxes, rcenter
 
 def debug_thread():
+    if record_debug:
+        fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+        out = cv2.VideoWriter('rocks_debug.mp4', fourcc, 15.0, (osclient.box['width'], osclient.box['height']))
     while 1:
-        cv2.imshow('pybot', get_client_debug())
-
+        frame = get_client_debug()
+        cv2.imshow('pybot', frame)
+        if record_debug:
+            out.write(frame)
         if cv2.waitKey(25) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
             break
@@ -122,10 +129,10 @@ def run_script():
         loop_count+=1
 
 if start_debug:
-    # t = threading.Thread(target=run_script)
+    t = threading.Thread(target=run_script)
     m = threading.Thread(target=debug_thread)
 
-    # t.start()
+    t.start()
     m.start()
 else:
     run_script()
