@@ -1,28 +1,27 @@
 import cv2
 import mss
 import numpy as np
-import core.client as client
+import util.core.client as client
 import os, sys
 import argparse
 
+maskpath = os.path.join(os.path.dirname(__file__), 'mask.jpg')
+mask = cv2.imread(maskpath, 0)
+
 
 def get_map(sct4, client_box, square = False):
-
-    offset_top = 78 - 74
-    offset_left = 636 - 74
+    thresh = 250
+    ret, m = cv2.threshold(mask, thresh, 255, cv2.THRESH_BINARY)  # to be done: load the mask directry into memory
+    offset_top = 4
+    offset_left = 562
     minimap_box = {'top': client_box['top'] + offset_top,
                    'left': client_box['left'] + offset_left,
                    'width': 151,
                    'height': 151}
     img = np.array(sct4.grab(minimap_box))[:, :, :-1]
 
-    mask = cv2.imread('mask.jpg', 0)
-
-    thresh = 250
-    ret, mask = cv2.threshold(mask, thresh, 255, cv2.THRESH_BINARY)
-
-    img_masked = cv2.bitwise_and(img, img, mask= mask )
-    white_mask = cv2.bitwise_not(mask, mask)
+    img_masked = cv2.bitwise_and(img, img, mask= m )
+    white_mask = cv2.bitwise_not(m, m)
     white_mask = cv2.cvtColor(white_mask, cv2.COLOR_GRAY2BGR)
 
     uncroppedmap = cv2.add(white_mask, img_masked)
@@ -59,6 +58,7 @@ if __name__ == "__main__":
     parser.add_argument('-l', type=str, help='debug false by default', default="miningguild")
     args = parser.parse_args()
     label = args.l
+
     data_path = os.path.join(os.path.dirname(__file__), "training_data/minimaps/miningguild")
 
     mon = MonitorSuper()

@@ -66,13 +66,20 @@ def process_image(img, select_threshold=0.5, nms_threshold=.02, net_shape=(512, 
 
 
 
-# Test on some demo image and visualize output.
-# path = '/home/walter/Documents/others_git/SSD-Tensorflow/demo/'
-# image_names = sorted(os.listdir(path))
+def get_objects(sct, osclient, object_id ="all"):
+    img = np.array(sct.grab(osclient.box))[:, :, :-1]
+    img = np.array(img)
+    rcenter = []
+    rclasses, rscores, rbboxes = process_image(img)
+    for ind, box in enumerate(rbboxes):
+        topleft = (int(box[1] * img.shape[1]), int(box[0] * img.shape[0]))
+        botright = (int(box[3] * img.shape[1]), int(box[2] * img.shape[0]))
+
+        c = (int((botright[0] + topleft[0]) / 2), int((botright[1] + topleft[1]) / 2))
+        if object_id == "all":
+            rcenter.append(c)
+        elif rclasses[ind] in object_id:
+            rcenter.append(c)
 
 
-
-#rclasses, rscores, rbboxes = process_image(img)
-
-# visualization.bboxes_draw_on_img(img, rclasses, rscores, rbboxes, visualization.colors_plasma)
-# visualization.plt_bboxes(img, rclasses, rscores, rbboxes)
+    return rclasses, rbboxes, rcenter

@@ -40,6 +40,8 @@ events = {
     "9": uinput.KEY_9,
     "LEFT_KEY": uinput.KEY_LEFT,
     "RIGHT_KEY": uinput.KEY_RIGHT,
+    "UP_KEY": uinput.KEY_UP,
+    "DOWN_KEY": uinput.KEY_DOWN,
     "TAB_KEY": uinput.KEY_TAB,
     "ENTER_KEY": uinput.KEY_ENTER
 }
