@@ -1,13 +1,16 @@
-# from transitions import Machine
-from transitions.extensions import GraphMachine as Machine
-from util.core.ssd import ssd_inference
-from util.core import mouse, ocr, keyboard
+from transitions import Machine
+# from transitions.extensions import GraphMachine as Machine
+from util.core.ssd.ssd_inference import SSD
+from util.core import keyboard
 import util.core.client as client
-import util.autolog as autolog
 import mss
 import time
-from util import template
-from util.minimap import get_minimap_xy, move_minimap, find_bank, set_north
+from util.template import Template
+from util.minimap import Minimap
+from util.core.ocr import Ocr
+from util.core.mouse import Mouse
+from util.autolog import Autolog
+
 
 class AmethystBot(object):
 
@@ -35,6 +38,13 @@ class AmethystBot(object):
         self.box = self.osclient.box
         self.sct = mss.mss()
         self.machine = Machine(model=self, states=AmethystBot.states, transitions=AmethystBot.transitions, initial='login', queued = True)
+        self.minimap = Minimap(self.sct, self.box, 'miningguild.png')
+        self.ocr = Ocr(self.sct, self.box)
+        self.mouse = Mouse(self.sct, self.box)
+        self.template = Template(self.sct, self.box)
+        self.autolog = Autolog(self.sct, self.box)
+        self.ssd_inference = SSD(ckpt_filename= '/home/walter/Documents/others_git/SSD-Tensorflow/checkpoints/rocks/rock_model.ckpt', n_classes=21)
+
 
         self.machine.on_enter_mine_amethyst('onenter_amethyst')
         self.machine.on_enter_walking_to_bank('onenter_invfull')
@@ -45,76 +55,73 @@ class AmethystBot(object):
 
     def onenter_amethyst(self):
         for i in range(0,10):
-            rclasses, rbboxes, rcenter = ssd_inference.get_objects(self.sct, self.osclient, object_id=[4])
+            rclasses, rbboxes, rcenter = self.ssd_inference.get_objects(self.sct, self.osclient, object_id=[4])
             for c in rcenter:
-                text_found = mouse.ocr_click(c[0] + self.box['left'], c[1] + self.box['top'], self.box, target_text="rys")
+                text_found = self.mouse.ocr_click(c[0] + self.box['left'], c[1] + self.box['top'], target_text=['rys'])
                 if text_found:
                     for i in range(1,20):
                         time.sleep(4)
-                        if "manage" in ocr.get_lastchat(self.box):
+                        if "manage" in self.ocr.get_lastchat():
                             print("managed to mine a rock")
                             return self.amethyst_mined()
 
-                        if "currently" in ocr.get_lastchat(self.box):
+                        if "currently" in self.ocr.get_lastchat():
                             print("no_rocks")
                             return self.amethyst_mined()
 
-                        if "full" in ocr.get_dialogue(self.box):
+                        if "full" in self.ocr.get_dialogue():
                             print("inv is full")
                             return self.inventory_full()
             keyboard.hold_key("RIGHT_KEY", 5)
             keyboard.hold_key("UP_KEY", 5)
         print('found nothing, checking to see if dc')
-        if autolog.checkloginscreen(box=self.box):
+        if self.autolog.checkloginscreen():
             self.dc()
 
     def onenter_invfull(self):
         print("entering invful")
         time.sleep(2)
-        set_north(self.sct, self.box)
+        self.mouse.set_north()
         time.sleep(2)
-        minimap_xy = get_minimap_xy(self.sct, self.osclient)
+        minimap_xy = self.minimap.get_minimap_xy()
         print("x,y coordinates", minimap_xy[0],' ', minimap_xy[1])
 
         if minimap_xy[1]<280:
-            move_minimap(self.osclient, -10,-65)
+            self.mouse.move_minimap(-10,-65)
             time.sleep(10)
-            bankx, banky = find_bank(self.sct, self.box)
-            move_minimap(self.osclient, bankx-75, banky-75)
+            bankx, banky = self.minimap.find_bank()
+            self.mouse.move_minimap(bankx-75, banky-75)
             time.sleep(3)
             return self.bank_reached()
+
     def onenter_login(self):
         time.sleep(9)
-        print('minimap, coordiante', get_minimap_xy(self.sct, self.osclient))
-        if get_minimap_xy(self.sct, self.osclient)[1]>180:
+        print('minimap, coordiante', self.minimap.get_minimap_xy())
+        if self.minimap.get_minimap_xy()[1]>180:
             self.login_to_mining()
         else:
             self.login_to_walking()
-
 
     def onenter_bankchest(self):
         for i in range(0,4):
             keyboard.hold_key("RIGHT_KEY", 10)
             keyboard.hold_key("UP_KEY", 10)
-            rclasses, rbboxes, rcenter = ssd_inference.get_objects(self.sct, self.osclient, object_id=[2,3])
+            rclasses, rbboxes, rcenter = self.ssd_inference.get_objects(self.sct, self.osclient, object_id=[2,3])
             for c in rcenter:
-                text_found = mouse.ocr_click(c[0] + self.box['left'], c[1] + self.box['top'], self.box, target_text="Bank")
+                text_found = self.mouse.ocr_click(c[0] + self.box['left'], c[1] + self.box['top'], target_text=['Bank'])
                 if text_found:
                     time.sleep(3)
-                    if template.click_deposit(self.sct, self.box):
-                        set_north(self.sct, self.box)
+                    if self.template.click_deposit():
+                        self.mouse.set_north()
                         return self.bank_found()
         print('bankchest cant be found')
+
     def onenter_tomine(self):
         print("walking to mine")
-        set_north(self.sct, self.box)
-        move_minimap(self.osclient, 10, 70)
+        self.mouse.set_north()
+        self.mouse.move_minimap(10, 70)
         time.sleep(12)
         self.mine_reached()
-
-        # return self.amethyst_mined()
-        # print("recursive hell initiated")
-
 
 pybot = AmethystBot("mysuperbot")
 

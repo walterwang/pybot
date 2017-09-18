@@ -36,8 +36,8 @@ class MonitorSuper(PyKeyboardEvent):
             sys.exit()
 
 if __name__ == "__main__":
-    label = 'rocks'
-    data_path = os.path.join(os.path.dirname(__file__), "training_data/rocks/JPEGImages/")
+    label = 'astrals'
+    data_path = os.path.join(os.path.dirname(__file__), "training_data/astrals/JPEGImages/")
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--label', type = str, default = label)

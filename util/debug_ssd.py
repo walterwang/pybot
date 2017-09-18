@@ -10,7 +10,7 @@ import os
 
 from util import autolog, drop
 from util.core import client, keyboard, mouse
-from util.core.ssd import ssd_inference
+from util.core.ssd.ssd_inference import SSD
 
 parser = argparse.ArgumentParser(description = 'Debug')
 
@@ -22,23 +22,38 @@ osclient = client.Client()
 box = osclient.box
 
 
-labels = {
+# rock_labels = {
+#     0: 'none',
+#     1:'depleted',
+#     2:'bankchest',
+#     3:'depositbox',
+#     4:'amethyst' ,
+#     5:'mithril' ,
+#     6:'adamantite' ,
+#     8:'coal' ,
+#     9:'iron' ,
+#     15: 'spooky_ghost'
+#
+# }
+astrals_labels = {
     0: 'none',
-    1:'depleted',
-    2:'bankchest',
-    3:'depositbox',
-    4:'amethyst' ,
-    5:'mithril' ,
-    6:'adamantite' ,
-    8:'coal' ,
-    9:'iron' ,
+    1:'bank',
+    2:'banker',
+    3:'astral_altar',
+    4: 'amethyst',
+    5: 'mithril',
+    6: 'adamantite',
+    8: 'coal',
+    9: 'iron',
     15: 'spooky_ghost'
 
+
 }
+
 sct = mss.mss()
 
-
-def visualize_box(img, rclasses, rscores, rbboxes):
+ssd_inference= SSD(ckpt_filename= '/home/walter/Documents/others_git/SSD-Tensorflow/checkpoints/astrals/astrals_model.ckpt', n_classes=3)
+def visualize_box(img, rclasses, rscores, rbboxes, labels=astrals_labels):
     for ind, box in enumerate(rbboxes):
         topleft = (int(box[1] * img.shape[1]), int(box[0] * img.shape[0]))
         botright = (int(box[3] * img.shape[1]), int(box[2] * img.shape[0]))
@@ -53,11 +68,11 @@ def visualize_box(img, rclasses, rscores, rbboxes):
 def get_client_debug():
     img = np.array(sct.grab(box))[:, :, :-1]
     img = np.array(img)
-    rclasses, rscores, rbboxes = ssd_inference.process_image(img)
-    client_img = visualize_box(img, rclasses, rscores, rbboxes)
+    rclasses, rscores, rbboxes = ssd_inference.process_image(img, select_threshold=.8)
+    client_img = visualize_box(img, rclasses, rscores, rbboxes, labels=astrals_labels)
     return client_img
 
-def generate_xml(filename, img_path, annotation_path=os.path.join(os.path.dirname(__file__), "training_data/rocks/Annotations/")):
+def generate_xml(filename, img_path, annotation_path=os.path.join(os.path.dirname(__file__), "training_data/astrals/Annotations/")):
     img = np.array(sct.grab(osclient.box))[:, :, :-1]
     img = np.array(img)
     rcenter = []
