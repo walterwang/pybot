@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10bf72ec-3717-4e7a-89f4-b2767e25d26e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/minimaps/miningguild.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rc_astral.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/my_state_diagram.png" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/util/banktemplate.png" afterPath="$PROJECT_DIR$/util/templates/banktemplate.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/util/deposittemplate.png" afterPath="$PROJECT_DIR$/util/templates/deposittemplate.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/minimaps/lunarisle.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/templates/lunaraltar.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/templates/lunarbank.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/templates/pot.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/util/path_matrix.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/amethyst_mining.py" afterPath="$PROJECT_DIR$/amethyst_mining.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rc_astral.py" afterPath="$PROJECT_DIR$/rc_astral.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/autolog.py" afterPath="$PROJECT_DIR$/util/autolog.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/core/client.py" afterPath="$PROJECT_DIR$/util/core/client.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/core/keyboard.py" afterPath="$PROJECT_DIR$/util/core/keyboard.py" />
@@ -46,7 +47,7 @@
     <SUITE FILE_PATH="coverage/pybot$template.coverage" NAME="template Coverage Results" MODIFIED="1504936665139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util" />
     <SUITE FILE_PATH="coverage/pybot$debug_ssd.coverage" NAME="debug_ssd Coverage Results" MODIFIED="1504836724462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util" />
     <SUITE FILE_PATH="coverage/pybot$rc_astral.coverage" NAME="rc_astral Coverage Results" MODIFIED="1505134131692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/pybot$amethyst_mining.coverage" NAME="amethyst_mining Coverage Results" MODIFIED="1505397059492" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pybot$amethyst_mining.coverage" NAME="amethyst_mining Coverage Results" MODIFIED="1505541176842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pybot$gather_minimap_data.coverage" NAME="gather_minimap_data Coverage Results" MODIFIED="1503795086520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
@@ -55,8 +56,8 @@
       <file leaf-file-name="amethyst_mining.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/amethyst_mining.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="136" column="0" lean-forward="true" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+            <state relative-caret-position="270">
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -67,8 +68,8 @@
       <file leaf-file-name="rc_astral.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rc_astral.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3888">
-              <caret line="226" column="17" lean-forward="false" selection-start-line="226" selection-start-column="17" selection-end-line="226" selection-end-column="17" />
+            <state relative-caret-position="2988">
+              <caret line="187" column="26" lean-forward="false" selection-start-line="187" selection-start-column="26" selection-end-line="187" selection-end-column="26" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -99,7 +100,7 @@
       <file leaf-file-name="ssd_inference.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/util/core/ssd/ssd_inference.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1386">
+            <state relative-caret-position="1404">
               <caret line="78" column="34" lean-forward="false" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -141,7 +142,7 @@
       <file leaf-file-name="ocr.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/util/core/ocr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
+            <state relative-caret-position="414">
               <caret line="23" column="45" lean-forward="false" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -241,8 +242,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2545" />
-    <option name="y" value="88" />
+    <option name="x" value="2654" />
+    <option name="y" value="450" />
     <option name="width" value="958" />
     <option name="height" value="1012" />
   </component>
@@ -261,6 +262,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -329,7 +331,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -337,7 +338,7 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/util/training_data/organize_map_data.py&#10;/home/walter/Documents/my_git/pybot/util/training_data/rocks/JPEGImages/rocks_0001.png&#10;/home/walter/Documents/my_git/pybot/util/training_data/label.txt&#10;/home/walter/Documents/my_git/pybot/account_id.txt" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../others_git/SSD-Tensorflow/datasets/pascalvoc_common.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -637,18 +638,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2545" y="88" width="958" height="1012" extended-state="0" />
-    <editor active="true" />
+    <frame x="2654" y="450" width="958" height="1012" extended-state="0" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22511312" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24321267" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.51096493" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6864035" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39958158" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -934,7 +934,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/util/core/ocr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
+        <state relative-caret-position="414">
           <caret line="23" column="45" lean-forward="false" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -962,7 +962,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/util/core/ssd/ssd_inference.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1386">
+        <state relative-caret-position="1404">
           <caret line="78" column="34" lean-forward="false" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -972,8 +972,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/rc_astral.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3888">
-          <caret line="226" column="17" lean-forward="false" selection-start-line="226" selection-start-column="17" selection-end-line="226" selection-end-column="17" />
+        <state relative-caret-position="2988">
+          <caret line="187" column="26" lean-forward="false" selection-start-line="187" selection-start-column="26" selection-end-line="187" selection-end-column="26" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
@@ -982,8 +982,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/amethyst_mining.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="136" column="0" lean-forward="true" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+        <state relative-caret-position="270">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
